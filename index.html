@@ -12,6 +12,7 @@
     <link rel="canonical" href="$CANONICAL$"/>
     <link rel="icon" href="assets/h097mc2i.png"/>
     <link rel="stylesheet" href="styles.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style tyle="text/css">
       body {
             font-family: 'Open Sans', Arial, serif;
@@ -21,33 +22,33 @@
             --color-dark-secondary: rgba(98,106,127,1);
             --color-dark-link: undefined;
             --wrapper-width: 1030px;
-          } 
-      .section:not(.dark), .section:not(.dark) .color-text { color: #fff; --color-secondary: #fff; } 
-      .section.dark, .section.dark .color-text { color: rgba(98,106,127,1); --color-secondary: rgba(98,106,127,1); } 
-      .section:not(.dark) .color { color: #fff; } 
-      .section.dark .color { color: rgba(55,63,83,1); } 
-      .section:not(.dark) { --color: #fff; --color-link: #fff; } 
-      .section.dark { --color: rgba(55,63,83,1); --color-link: rgba(55,63,83,1); } 
-      .weight-text { font-weight: 400; } 
-      .weight-text-m { font-weight: 600; } 
-      .weight-text-h { font-weight: 700; } 
-      .weight-title { font-weight: 400; } 
-      .weight-title-m { font-weight: 400; } 
-      .weight-title-h { font-weight: 400; } 
-      .font-title { font-family: 'Patua One', monospace; } 
-      a:not(.btn), .link { 
-            color: #fff; 
-            --link-hover-bg: rgba(255, 255, 255, 0.05); 
+          }
+      .section:not(.dark), .section:not(.dark) .color-text { color: #fff; --color-secondary: #fff; }
+      .section.dark, .section.dark .color-text { color: rgba(98,106,127,1); --color-secondary: rgba(98,106,127,1); }
+      .section:not(.dark) .color { color: #fff; }
+      .section.dark .color { color: rgba(55,63,83,1); }
+      .section:not(.dark) { --color: #fff; --color-link: #fff; }
+      .section.dark { --color: rgba(55,63,83,1); --color-link: rgba(55,63,83,1); }
+      .weight-text { font-weight: 400; }
+      .weight-text-m { font-weight: 600; }
+      .weight-text-h { font-weight: 700; }
+      .weight-title { font-weight: 400; }
+      .weight-title-m { font-weight: 400; }
+      .weight-title-h { font-weight: 400; }
+      .font-title { font-family: 'Patua One', monospace; }
+      a:not(.btn), .link {
+            color: #fff;
+            --link-hover-bg: rgba(255, 255, 255, 0.05);
             --link-hover: #cccccc;
-          } 
-      .dark a:not(.btn), .dark .link { 
-            color: rgba(55,63,83,1); 
-            --link-hover-bg: rgba(55, 63, 83, 0.05); 
+          }
+      .dark a:not(.btn), .dark .link {
+            color: rgba(55,63,83,1);
+            --link-hover-bg: rgba(55, 63, 83, 0.05);
             --link-hover: rgb(14, 16, 22);
-          } 
-      
-            a, .link { text-decoration: none; font-weight: 600; } 
-            a:not(.btn):hover { text-decoration: underline } 
+          }
+
+            a, .link { text-decoration: none; font-weight: 600; }
+            a:not(.btn):hover { text-decoration: underline }
       .wr { max-width: 1030px; max-width: var(--wr-max); }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Patua+One|Open+Sans:400,600,700" rel="stylesheet"/>
@@ -105,7 +106,7 @@
         var nav = document.getElementById('headerNav');
         var logoWidth = logo.offsetWidth;
         var navWidth = nav.offsetWidth;
-      
+
         var determineVisibility = function() {
           var parent = window.innerWidth;
           if (logoWidth + navWidth > parent - margin) {
@@ -116,19 +117,19 @@
             buttonWrapper.classList.remove('headerMenu--visible');
           }
         };
-      
+
         var showDrawer = function() {
           drawer.classList.add('headerMenu--visible');
         };
-      
+
         var hideDrawer = function() {
           drawer.classList.remove('headerMenu--visible');
         };
-      
+
         button.onclick = showDrawer;
         drawerBackdrop.onclick = hideDrawer;
         drawerClose.onclick = hideDrawer;
-      
+
         window.addEventListener('resize', determineVisibility);
         determineVisibility();
       })();
@@ -178,16 +179,16 @@
                       elAcceptLabel = document.getElementById('if_acceptlbl_q6ekz99mah'),
                       elLegal = document.getElementById('if_legal_q6ekz99mah'),
                       elLegalUI = document.getElementById('if_legalui_q6ekz99mah')
-                  
+
                     function bindInlineForm() {
                       elForm.addEventListener('submit', handleInlineSubmit)
                       elSubmitBtn.addEventListener('click', handleInlineSubmit)
                       elEmail.oninput = handleEmailChange
                     }
-                  
+
                     function handleInlineSubmit(e) {
                       e.preventDefault()
-                  
+
                       var data = {
                         siteId: elSiteID.value,
                         listId: elListID.value,
@@ -197,29 +198,29 @@
                         didAccept: elAccept ? elAccept.checked : null,
                         legal: elLegal ? elLegal.value : null
                       }
-                  
+
                       if (!validateInlineData(data)) {
                         return
                       }
-                  
+
                       elSubmitBtn.classList.add('btn--loading')
-                  
+
                       if (data.action === 'forward') {
                         forwardData(data)
                       } else {
                         sendInlineData(data)
                       }
                     }
-                  
+
                     function forwardData(data) {
                       var url = elURL.value
-                  
+
                       url = url.replace('[EMAIL]', data.email)
                       url = url.replace('[NAME]', data.name)
-                  
+
                       window.location.href = url
                     }
-                  
+
                     function sendInlineData(data) {
                       var request = new XMLHttpRequest()
                       request.open('POST', window.location.origin + '/api/subscribe', true)
@@ -228,7 +229,7 @@
                         'application/x-www-form-urlencoded; charset=UTF-8'
                       )
                       request.send(JSON.stringify(data))
-                  
+
                       request.onload = function() {
                         elSubmitBtn.classList.remove('btn--loading')
                         if (this.status >= 200 && this.status < 400) {
@@ -242,14 +243,14 @@
                           console.log('error')
                         }
                       }
-                  
+
                       request.onerror = function() {
                         alert(
                           'A network error occured. Please make sure you are connected to the internet.'
                         )
                       }
                     }
-                  
+
                     function clearInlineData() {
                       elEmail.value = ''
                       if (elName) {
@@ -257,7 +258,7 @@
                       }
                       showLegal(false)
                     }
-                  
+
                     function handleEmailChange(e) {
                       if (e.target.value && e.target.value.length > 6) {
                         showLegal(true)
@@ -265,7 +266,7 @@
                         showLegal(false)
                       }
                     }
-                  
+
                     function showLegal(show) {
                       if (elLegalUI) {
                         if (show) {
@@ -275,10 +276,10 @@
                         }
                       }
                     }
-                  
+
                     function validateInlineData(data) {
                       var error = false
-                  
+
                       if (
                         data.email.length < 6 ||
                         data.email.indexOf('@') === -1 ||
@@ -289,14 +290,14 @@
                       } else {
                         elEmail.classList.remove('error')
                       }
-                  
+
                       if (elName && elName.value === '') {
                         error = true
                         elName.classList.add('error')
                       } else if (elName) {
                         elName.classList.remove('error')
                       }
-                  
+
                       if (elAcceptLabel) {
                         if (elReqAccept.value === 'true' && !elAccept.checked) {
                           error = true
@@ -305,7 +306,7 @@
                           elAcceptLabel.classList.remove('error')
                         }
                       }
-                  
+
                       return error === false
                     }
                     bindInlineForm()
@@ -504,7 +505,7 @@
               How do I access your AR tools?
             </h3>
             <p class="faqItem__answer">
-              Find our apps in the 
+              Find our apps in the
               <a href="https://itunes.apple.com/us/app/vsepr-ar/id1441723400">
                 app store
               </a>
@@ -576,20 +577,20 @@
         </form>
         <!-- https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=otheremail@mail.com&value2=Joh Smith&value3=here is my message. hello world.&/email_submitted -->
         <script>
-          
+
           (function() {
             function bindForm() {
               var form = document.getElementById('contact_form_target');
               form.addEventListener('submit', handleSubmit);
-          
+
               var btn = document.getElementById('contactSubmit');
               btn.addEventListener('click', handleSubmit);
             }
-          
+
             function handleSubmit(e) {
               e.preventDefault();
               console.log('submitted form');
-          
+
               var data = {
                 path: window.location.pathname,
                 siteId: document.getElementById('contact_form_target').getAttribute('data-siteid'),
@@ -598,16 +599,18 @@
                 phone: document.getElementById('contactPhone').value,
                 message: document.getElementById('contactMessage').value
               };
-          
+
               if (!validateData(data)) {
                 return;
               }
-          
+
               document.getElementById('contactSubmit').classList.add('btn--loading');
-          
+
               sendData(data);
+              //TODO: send POST to IFTTT
+
             }
-          
+
             function sendData(data) {
               var request = new XMLHttpRequest();
               request.open('POST', window.location.origin + '/api/contact', true);
@@ -616,7 +619,7 @@
                 'application/x-www-form-urlencoded; charset=UTF-8'
               );
               request.send(JSON.stringify(data));
-          
+
               request.onload = function() {
                 document.getElementById('contactSubmit').classList.remove('btn--loading');
                 if (this.status >= 200 && this.status < 400) {
@@ -632,20 +635,20 @@
                   console.log('error');
                 }
               };
-          
+
               request.onerror = function() {
                 document.getElementById('contactError').innerText =
                   'A network error occured. Please make sure you are connected to the internet.';
               };
             }
-          
+
             function clearData() {
               document.getElementById('contactName').value = '';
               document.getElementById('contactEmail').value = '';
               document.getElementById('contactPhone').value = '';
               document.getElementById('contactMessage').value = '';
             }
-          
+
             function validateData(data) {
               var error = false;
               if (data.name.length < 2) {
@@ -655,13 +658,13 @@
               } else if (data.message.length < 4) {
                 error = 'Please enter a message';
               }
-          
+
               if (error) {
                 document.getElementById('contactError').innerText = error;
               } else {
                 document.getElementById('contactError').innerText = '';
               }
-          
+
               return error === false;
             }
             bindForm();
@@ -674,7 +677,7 @@
         <div class="footer footer--simple">
           <div class="footer__primary">
             <span>
-              Curiosity made with ❤️ in Reston, VA | © 2019 Fourth Wave LLC. 
+              Curiosity made with ❤️ in Reston, VA | © 2019 Fourth Wave LLC.
             </span>
           </div>
           <ul class="footer__social">
@@ -697,11 +700,11 @@
     <script>
       ;(function() {
         var offset = 0
-      
+
         if (document.getElementsByClassName('header--fixed').length) {
           offset = document.getElementsByClassName('header--fixed')[0].clientHeight;
         }
-      
+
         // smooth scrolling to all anchor links
         new window.SmoothScroll('a[href*="#"]', {
           offset: offset
