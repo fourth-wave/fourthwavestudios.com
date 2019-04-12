@@ -577,6 +577,8 @@
         </form>
         <!-- https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=otheremail@mail.com&value2=Joh Smith&value3=here is my message. hello world.&/email_submitted -->
         <script>
+          //dont show red bar under contact form
+          document.getElementById('contactSubmit').classList.remove('btn--loading');
 
           (function() {
             function bindForm() {
@@ -606,45 +608,16 @@
 
               document.getElementById('contactSubmit').classList.add('btn--loading');
 
-              sendData(data);
+              //sendData(data);
               //TODO: send POST to IFTTT
               //https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=otheremail@mail.com&value2=Joh Smith&value3=here is my message. hello world.&/email_submitted
-              var ifttt_link = "https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=" + data["email"]  + "&value2=" + data["name"] + "&value3=" + data[message] + "&/email_submitted";
+              var ifttt_link = "https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=" + data["email"]  + "&value2=" + data["name"] + "&value3=" + data["message"] + "&/email_submitted";
 
-              $.post(ifttt_link, function("", status){
-                  console.log("Data: " + data + "\nStatus: " + status);
-              });
-            }
-
-            function sendData(data) {
-              var request = new XMLHttpRequest();
-              request.open('POST', window.location.origin + '/api/contact', true);
-              request.setRequestHeader(
-                'Content-Type',
-                'application/x-www-form-urlencoded; charset=UTF-8'
-              );
-              request.send(JSON.stringify(data));
-
-              request.onload = function() {
-                document.getElementById('contactSubmit').classList.remove('btn--loading');
-                if (this.status >= 200 && this.status < 400) {
-                  // success handling
-                  clearData();
+              $.post(ifttt_link, function(status){
+                  console.log("Status: " + status);
                   document.getElementById('contactSubmit').classList.add('btn--success');
-                  setTimeout(function() {
-                    document
-                      .getElementById('contactSubmit')
-                      .classList.remove('btn--success');
-                  }, 2000);
-                } else {
-                  console.log('error');
-                }
-              };
-
-              request.onerror = function() {
-                document.getElementById('contactError').innerText =
-                  'A network error occured. Please make sure you are connected to the internet.';
-              };
+                  clearData();
+              });
             }
 
             function clearData() {
