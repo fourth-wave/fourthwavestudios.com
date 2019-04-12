@@ -608,7 +608,11 @@
 
               sendData(data);
               //TODO: send POST to IFTTT
-
+              //https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=otheremail@mail.com&value2=Joh Smith&value3=here is my message. hello world.&/email_submitted
+              var ifttt_link = "https://maker.ifttt.com/trigger/email_submitted/with/key/o9WrGeh-TnEw-gWL6SlKpxpwN3BZTiXNgMujO9mbqVU?value1=" + data["email"]  + "&value2=" + data["name"] + "&value3=" + data[message] + "&/email_submitted"
+              $.post(ifttt_link, function("", status){
+                  console.log("Data: " + data + "\nStatus: " + status);
+              });
             }
 
             function sendData(data) {
